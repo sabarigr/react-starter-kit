@@ -24,11 +24,29 @@ const config = {
       },
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"]
+        use: [{
+          loader: "style-loader"
+        }, {
+          loader: "css-loader",
+          options: {
+            modules: {
+              localIdentName: "[name]__[local]___[hash:base64:5]",
+            },
+          }
+        }]
+        // use: ["style-loader", "css-loader"]
       },
       {
         test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"]
+        use: ["style-loader", {
+          loader: "css-loader",
+          options: {
+            modules: {
+              localIdentName: "[name]__[local]___[hash:base64:5]",
+            },
+          }
+        }, "sass-loader"]
+        // use: ["style-loader", "css-loader", "sass-loader"]
       },
       {
         test: /\.(ttf|eot|woff|woff2)$/,
@@ -46,18 +64,22 @@ const config = {
     ]
   },
   output: {
-    path: path.resolve(__dirname, "public"),
+    path: path.resolve(__dirname, "dist"),
     publicPath: "/",
     filename: "[name].bundle.js"
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "../public/index.html"
+      template: "index.html"
     }),
     new webpack.HotModuleReplacementPlugin()
   ],
   resolve: {
-    extensions: ["*", ".js", ".jsx"]
+    extensions: [".js", ".jsx", ".json"],
+    modules: [path.resolve(__dirname, './src'), 'node_modules'],
+    alias: {
+      routes$: path.resolve(__dirname, "./src/routes/"),
+    }
   }
 };
 
