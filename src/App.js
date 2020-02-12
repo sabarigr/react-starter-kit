@@ -1,13 +1,12 @@
-import React, { Fragment } from "react";
-import Menu from "./components/menu";
-import { AppRoutes } from "routes";
-const App = () => {
-  return (
-    <Fragment>
-      <Menu />
-      <AppRoutes />
-    </Fragment>
-  );
-};
+import React from 'react';
+import { AppRoutes } from 'routes';
+import Menu from './components/menu';
+
+const App = () => (
+  <div className="container-wrap">
+    <Menu />
+    <AppRoutes />
+  </div>
+);
 
 export default App;
